@@ -5,6 +5,7 @@
  * Affiche les fleches en fonction du nombre de divs dans le carousel
  * et de la taille de l'écran
  * 
+ * @param {*} items
  * @param {*} flecheGauche 
  * @param {*} flecheDroite 
  */
