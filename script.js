@@ -158,13 +158,9 @@ function autoSlidePosRight(carouselNumber, carousels, flechesDroites) {
     );
 }
 
-/* Liste des fleches gauches (ici 2 car 2 carousels) */
 let flechesGauches = document.getElementsByClassName("left-arrow");
-/* Liste des fleches droites (ici 2 car 2 carousels) */
 let flechesDroites = document.getElementsByClassName("right-arrow");
-/* Liste des carousels (ici 2 car 2 carousels) */
 let carousels = document.getElementsByClassName("carousel");
-/* Liste des items */
 let items = document.getElementsByClassName("carousel-item");
 
 /* pour toutes les fleches gauches on ajoute l'eventListener */
