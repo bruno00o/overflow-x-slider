@@ -1,201 +1,106 @@
 "use strict";
-/* Script carousels (sliders) de l'accueil */
 
-/**
- * Affiche les fleches en fonction du nombre de divs dans le carousel
- * et de la taille de l'écran
- * 
- * @param {*} items
- * @param {*} flecheGauche 
- * @param {*} flecheDroite 
- */
-function afficheFleches(items, flecheGauche, flecheDroite) {
-    let nbDivs = items.length;
-    if (window.innerWidth > 900) {
-        if (nbDivs <= 3) {
-            flecheGauche.style.display = "none";
-            flecheDroite.style.display = "none";
-        } else {
-            flecheGauche.style.display = "flex";
-            flecheDroite.style.display = "flex";
-        }
-    }
-    if (window.innerWidth > 550) {
-        if (nbDivs <= 2) {
-            flecheGauche.style.display = "none";
-            flecheDroite.style.display = "none";
-        } else {
-            flecheGauche.style.display = "flex";
-            flecheDroite.style.display = "flex";
-        }
-    }
-    if (window.innerWidth <= 550) {
-        if (nbDivs <= 1) {
-            flecheGauche.style.display = "none";
-            flecheDroite.style.display = "none";
-        } else {
-            flecheGauche.style.display = "flex";
-            flecheDroite.style.display = "flex";
-        }
-    }
-
-}
-
-/**
- * Gestion des évènements au scroll (fleches inactive et gradient
- * inactif)
- * 
- * @param {*} flecheGauche 
- * @param {*} flecheDroite 
- * @param {*} carousel 
- */
-function scrollEv(flecheGauche, flecheDroite, carousel) {
+function scrollEv(leftArrow, rightArrow, carousel) {
     if (carousel.scrollLeft <= 0) {
-        flecheGauche.classList.add("arrow-inactive");
+        leftArrow.classList.add("arrow-inactive");
     } else {
-        flecheGauche.classList.remove("arrow-inactive");
+        leftArrow.classList.remove("arrow-inactive");
     }
     if (carousel.scrollLeft >= carousel.scrollWidth - carousel.offsetWidth - 1) {
-        flecheDroite.classList.add("arrow-inactive");
+        rightArrow.classList.add("arrow-inactive");
     } else {
-        flecheDroite.classList.remove("arrow-inactive");
+        rightArrow.classList.remove("arrow-inactive");
     }
 }
 
-/**
- * Gestion d'un clic sur une fleche gauche
- * On slide vers la div gauche la plus proche
- * 
- * @param {*} carousel 
- * @param {*} rectListe 
- */
-function clicFlecheGauche(carousel, rectListe) {
-    let decaleScroll;
-    for (let i = 0; i < rectListe.length; i++) {
-        if (carousel.scrollLeft > rectListe[rectListe.length - 1]) {
-            decaleScroll = rectListe[rectListe.length - 1];
-        } else if (carousel.scrollLeft > rectListe[i] && carousel.scrollLeft <= rectListe[i + 1]) {
-            decaleScroll = rectListe[i];
+function clicleftArrow(carousel, rectList) {
+    let shiftScroll;
+    for (let i = 0; i < rectList.length; i++) {
+        if (carousel.scrollLeft > rectList[rectList.length - 1]) {
+            shiftScroll = rectList[rectList.length - 1];
+        } else if (carousel.scrollLeft > rectList[i] && carousel.scrollLeft <= rectList[i + 1]) {
+            shiftScroll = rectList[i];
         }
     }
     carousel.scrollTo({
-        left: decaleScroll,
+        left: shiftScroll,
         behavior: "smooth"
     });
 }
 
-/**
- * Gestion d'un clic sur une fleche droite
- * On slide vers la div droite la plus proche
- * 
- * @param {*} carousel 
- * @param {*} rectListe 
- */
-function clickRight(carousel, rectListe) {
-    let decaleScroll;
-    for (let i = 0; i < rectListe.length; i++) {
-        if (carousel.scrollLeft >= rectListe[i] - 1 && carousel.scrollLeft < rectListe[i + 1]) {
-            decaleScroll = rectListe[i + 1];
+function clickRight(carousel, rectList) {
+    let shiftScroll;
+    for (let i = 0; i < rectList.length; i++) {
+        if (carousel.scrollLeft >= rectList[i] - 1 && carousel.scrollLeft < rectList[i + 1]) {
+            shiftScroll = rectList[i + 1];
         }
     }
     carousel.scrollTo({
-        left: decaleScroll,
+        left: shiftScroll,
         behavior: "smooth"
     });
 }
 
-/**
- * On liste dans rectListe les coordonnées des divs du carousel
- * 
- * @param {*} carouselNumber 
- * @param {*} carousels 
- * @returns rectListe
- */
-function listeRectCarousel(carouselNumber, carousels) {
+function listRectCarousel(carouselNumber, carousels) {
     let divs = carousels[carouselNumber].getElementsByClassName("carousel-item");
-    let rectListe = [];
+    let rectList = [];
     let rectGauche = carousels[carouselNumber].getBoundingClientRect().left;
 
     for (let i = 0; i < divs.length; i++) {
         let rect = divs[i].getBoundingClientRect();
-        rectListe.push(rect.left - rectGauche);
+        rectList.push(rect.left - rectGauche);
     }
 
-    for (let i = rectListe.length - 1; i >= 0; i--) {
-        rectListe[i] = rectListe[i] - rectListe[0];
+    for (let i = rectList.length - 1; i >= 0; i--) {
+        rectList[i] = rectList[i] - rectList[0];
     }
-    return rectListe;
+    return rectList;
 }
 
-/**
- * On liste dans rectListe les coordonnées des divs du carousel
- * Puis on ajoute un évènement click sur la fleche gauche
- * 
- * @param {*} carouselNumber 
- * @param {*} carousels 
- * @param {*} flechesGauches 
- */
-function autoSlidePosGauche(carouselNumber, carousels, flechesGauches) {
-    let rectListe = listeRectCarousel(carouselNumber, carousels);
-    flechesGauches[carouselNumber].addEventListener("click", () => {
-        clicFlecheGauche(carousels[carouselNumber], rectListe);
+function autoSlidePosLeft(carouselNumber, carousels, leftArrows) {
+    let rectList = listRectCarousel(carouselNumber, carousels);
+    leftArrows[carouselNumber].addEventListener("click", () => {
+        clicleftArrow(carousels[carouselNumber], rectList);
     });
 }
 
-/**
- * On liste dans rectListe les coordonnées des divs du carousel
- * Puis on ajoute un évènement click sur la fleche droite
- * 
- * @param {*} carouselNumber 
- * @param {*} carousels 
- * @param {*} flechesDroites 
- */
-function autoSlidePosRight(carouselNumber, carousels, flechesDroites) {
-    let rectListe = listeRectCarousel(carouselNumber, carousels);
-    flechesDroites[carouselNumber].addEventListener("click", () => {
-        clickRight(carousels[carouselNumber], rectListe);
+function autoSlidePosRight(carouselNumber, carousels, rightArrows) {
+    let rectList = listRectCarousel(carouselNumber, carousels);
+    rightArrows[carouselNumber].addEventListener("click", () => {
+        clickRight(carousels[carouselNumber], rectList);
     }
     );
 }
 
 window.onload = () => {
-    let flechesGauches = document.getElementsByClassName("left-arrow");
-    let flechesDroites = document.getElementsByClassName("right-arrow");
+    let leftArrows = document.getElementsByClassName("left-arrow");
+    let rightArrows = document.getElementsByClassName("right-arrow");
     let carousels = document.getElementsByClassName("carousel");
-    let items = document.getElementsByClassName("carousel-item");
 
-    /* pour toutes les fleches gauches on ajoute l'eventListener */
-    for (let i = 0; i < flechesGauches.length; i++) {
-        autoSlidePosGauche(i, carousels, flechesGauches);
+    for (let i = 0; i < leftArrows.length; i++) {
+        autoSlidePosLeft(i, carousels, leftArrows);
         window.onresize = () => {
-            autoSlidePosGauche(i, carousels, flechesGauches);
+            autoSlidePosLeft(i, carousels, leftArrows);
         }
     }
 
-    /* pour toutes les fleches droites on ajoute l'eventListener */
-    for (let i = 0; i < flechesDroites.length; i++) {
-        autoSlidePosRight(i, carousels, flechesDroites);
+    for (let i = 0; i < rightArrows.length; i++) {
+        autoSlidePosRight(i, carousels, rightArrows);
         window.onresize = () => {
-            autoSlidePosRight(i, carousels, flechesDroites);
+            autoSlidePosRight(i, carousels, rightArrows);
         }
     }
 
-    /* on ajoute les evenements de scroll pour les 2 carousels */
     for (let i = 0; i < carousels.length; i++) {
         carousels[i].addEventListener("scroll", () => {
-            /* mêmes fonctions pour les gradient et les fleches */
-            scrollEv(flechesGauches[i], flechesDroites[i], carousels[i]);
+            scrollEv(leftArrows[i], rightArrows[i], carousels[i]);
         });
     }
 
-    /* on initialise l'affichage des fleches */
     for (let i = 0; i < carousels.length; i++) {
-        afficheFleches(items, flechesGauches[i], flechesDroites[i]);
-        scrollEv(flechesGauches[i], flechesDroites[i], carousels[i]);
-        /* a chaque resize de la fenetre, on ré initialise l'affichage des fleches */
+        scrollEv(leftArrows[i], rightArrows[i], carousels[i]);
         window.onresize = () => {
-            afficheFleches(items, flechesGauches[i], flechesDroites[i]);
-            scrollEv(flechesGauches[i], flechesDroites[i], carousels[i]);
+            scrollEv(leftArrows[i], rightArrows[i], carousels[i]);
         };
     }
 }

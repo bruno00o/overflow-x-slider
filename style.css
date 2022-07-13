@@ -6,13 +6,15 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
 }
 
 .carousel-wrapper {
     display: flex;
     justify-content: space-between;
     gap: .5em;
-    max-width: 95%;
+    max-width: 800px;
+
 }
 
 .wrapped-container {
