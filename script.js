@@ -137,7 +137,6 @@ function listeRectCarousel(carouselNumber, carousels) {
  */
 function autoSlidePosGauche(carouselNumber, carousels, flechesGauches) {
     let rectListe = listeRectCarousel(carouselNumber, carousels);
-    console.log(rectListe);
     flechesGauches[carouselNumber].addEventListener("click", () => {
         clicFlecheGauche(carousels[carouselNumber], rectListe);
     });
@@ -159,42 +158,44 @@ function autoSlidePosRight(carouselNumber, carousels, flechesDroites) {
     );
 }
 
-let flechesGauches = document.getElementsByClassName("left-arrow");
-let flechesDroites = document.getElementsByClassName("right-arrow");
-let carousels = document.getElementsByClassName("carousel");
-let items = document.getElementsByClassName("carousel-item");
+window.onload = () => {
+    let flechesGauches = document.getElementsByClassName("left-arrow");
+    let flechesDroites = document.getElementsByClassName("right-arrow");
+    let carousels = document.getElementsByClassName("carousel");
+    let items = document.getElementsByClassName("carousel-item");
 
-/* pour toutes les fleches gauches on ajoute l'eventListener */
-for (let i = 0; i < flechesGauches.length; i++) {
-    autoSlidePosGauche(i, carousels, flechesGauches);
-    window.onresize = () => {
+    /* pour toutes les fleches gauches on ajoute l'eventListener */
+    for (let i = 0; i < flechesGauches.length; i++) {
         autoSlidePosGauche(i, carousels, flechesGauches);
+        window.onresize = () => {
+            autoSlidePosGauche(i, carousels, flechesGauches);
+        }
     }
-}
 
-/* pour toutes les fleches droites on ajoute l'eventListener */
-for (let i = 0; i < flechesDroites.length; i++) {
-    autoSlidePosRight(i, carousels, flechesDroites);
-    window.onresize = () => {
+    /* pour toutes les fleches droites on ajoute l'eventListener */
+    for (let i = 0; i < flechesDroites.length; i++) {
         autoSlidePosRight(i, carousels, flechesDroites);
+        window.onresize = () => {
+            autoSlidePosRight(i, carousels, flechesDroites);
+        }
     }
-}
 
-/* on ajoute les evenements de scroll pour les 2 carousels */
-for (let i = 0; i < carousels.length; i++) {
-    carousels[i].addEventListener("scroll", () => {
-        /* mêmes fonctions pour les gradient et les fleches */
-        scrollEv(flechesGauches[i], flechesDroites[i], carousels[i]);
-    });
-}
+    /* on ajoute les evenements de scroll pour les 2 carousels */
+    for (let i = 0; i < carousels.length; i++) {
+        carousels[i].addEventListener("scroll", () => {
+            /* mêmes fonctions pour les gradient et les fleches */
+            scrollEv(flechesGauches[i], flechesDroites[i], carousels[i]);
+        });
+    }
 
-/* on initialise l'affichage des fleches */
-for (let i = 0; i < carousels.length; i++) {
-    afficheFleches(items, flechesGauches[i], flechesDroites[i]);
-    scrollEv(flechesGauches[i], flechesDroites[i], carousels[i]);
-    /* a chaque resize de la fenetre, on ré initialise l'affichage des fleches */
-    window.onresize = () => {
+    /* on initialise l'affichage des fleches */
+    for (let i = 0; i < carousels.length; i++) {
         afficheFleches(items, flechesGauches[i], flechesDroites[i]);
         scrollEv(flechesGauches[i], flechesDroites[i], carousels[i]);
-    };
+        /* a chaque resize de la fenetre, on ré initialise l'affichage des fleches */
+        window.onresize = () => {
+            afficheFleches(items, flechesGauches[i], flechesDroites[i]);
+            scrollEv(flechesGauches[i], flechesDroites[i], carousels[i]);
+        };
+    }
 }
