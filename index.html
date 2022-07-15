@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Carousel with touch scroll on touchscreens">
     <title>Carousel</title>
     <link rel="stylesheet" href="style.css">
     <script defer src="script.js"></script>
@@ -12,7 +13,7 @@
 
 <body>
     <section class="carousel-wrapper">
-        <button type="button" class="arrows left-arrow arrow-inactive">
+        <button type="button" class="arrows left-arrow arrow-inactive" aria-label="Arrow Left">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512">
                 <!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
                 <path
@@ -21,46 +22,54 @@
         </button>
         <section class="carousel">
             <div class="carousel-item">
-                <img src="https://picsum.photos/id/1/200/300" alt="">
+                <img src="https://picsum.photos/id/1/200/300" alt="Working">
             </div>
             <div class="carousel-item">
-                <img src="https://picsum.photos/id/2/200/300" alt="">
+                <img src="https://picsum.photos/id/2/200/300" alt="Working">
             </div>
             <div class="carousel-item">
-                <img src="https://picsum.photos/id/3/200/300" alt="">
+                <img src="https://picsum.photos/id/3/200/300" alt="Working">
             </div>
             <div class="carousel-item">
-                <img src="https://picsum.photos/id/4/200/300" alt="">
+                <img src="https://picsum.photos/id/4/200/300" alt="Working">
             </div>
             <div class="carousel-item">
-                <img src="https://picsum.photos/id/5/200/300" alt="">
+                <img src="https://picsum.photos/id/5/200/300" alt="Working">
             </div>
             <div class="carousel-item">
-                <img src="https://picsum.photos/id/6/200/300" alt="">
+                <img src="https://picsum.photos/id/6/200/300" alt="Working">
             </div>
             <div class="carousel-item">
-                <img src="https://picsum.photos/id/7/200/300" alt="">
+                <img src="https://picsum.photos/id/7/200/300" alt="Working">
             </div>
             <div class="carousel-item">
-                <img src="https://picsum.photos/id/8/200/300" alt="">
+                <img src="https://picsum.photos/id/8/200/300" alt="Working">
             </div>
             <div class="carousel-item">
-                <img src="https://picsum.photos/id/10/200/300" alt="">
+                <img src="https://picsum.photos/id/10/200/300" alt="Holidays">
             </div>
             <div class="carousel-item">
-                <img src="https://picsum.photos/id/11/200/300" alt="">
+                <img src="https://picsum.photos/id/11/200/300" alt="Holidays">
             </div>
             <div class="carousel-item">
-                <img src="https://picsum.photos/id/12/200/300" alt="">
+                <img src="https://picsum.photos/id/12/200/300" alt="Holidays">
             </div>
         </section>
-        <button type="button" class="arrows right-arrow">
+        <button type="button" class="arrows right-arrow" aria-label="Arrow Right">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512">
                 <!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
                 <path
                     d="M64 448c-8.188 0-16.38-3.125-22.62-9.375c-12.5-12.5-12.5-32.75 0-45.25L178.8 256L41.38 118.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l160 160c12.5 12.5 12.5 32.75 0 45.25l-160 160C80.38 444.9 72.19 448 64 448z" />
             </svg>
         </button>
+    </section>
+    <section id="toggle-overflow">
+        <h2>Overflow :</h2>
+        <input id="toggle" type="checkbox">
+        <label for="toggle">
+            <p id="on">ON</p>
+            <p id="off">OFF</p>
+        </label>
     </section>
 </body>
 

@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
 body {
     margin: 0;
     padding: 0;
@@ -7,6 +9,9 @@ body {
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    background-color: #C9CBA3;
+    font-family: 'Roboto', sans-serif;
+    gap: 1em;
 }
 
 .carousel-wrapper {
@@ -38,7 +43,7 @@ body {
     height: 45px;
     outline: none;
     border: none;
-    background-color: rgba(92, 92, 92, 0.75);
+    background-color: #5E4C5A;
     border-radius: 5px;
     display: flex;
     align-items: center;
@@ -52,7 +57,7 @@ body {
 }
 
 .arrows:hover {
-    background-color: rgba(92, 92, 92, 0.75);
+    background-color: #5E4C5A;
     transform: scale(1.1);
 }
 
@@ -73,7 +78,113 @@ body {
 
 .carousel-item {
     width: 200px;
+    height: 300px;
 }
+
+.carousel-item img {
+    border-radius: 10pt;
+}
+
+input[type=checkbox] {
+    height: 0;
+    width: 0;
+    visibility: hidden;
+}
+
+label {
+    color: white;
+    cursor: pointer;
+    width: 50px;
+    height: 30px;
+    background: #5E4C5A;
+    display: block;
+    border-radius: 100px;
+    position: relative;
+}
+
+label:after {
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: 20px;
+    height: 20px;
+    background: #fff;
+    border-radius: 90px;
+    transition: 0.3s;
+}
+
+input:checked+label {
+    background: #EF8354;
+}
+
+input:checked+label:after {
+    left: calc(100% - 5px);
+    transform: translateX(-100%);
+}
+
+label:active:after {
+    width: 20px;
+}
+
+input:checked+label #off {
+    display: none;
+}
+
+:not(input:checked)+label #on {
+    display: none;
+}
+
+p {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    font-size: .75rem;
+    user-select: none;
+    padding-left: .5em;
+    padding-right: .35em;
+    font-weight: 600;
+}
+
+#off {
+    justify-content: flex-end;
+    font-size: .65rem;
+}
+
+#toggle-overflow {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: .25em;
+    color: #5E4C5A;
+    font-size: .75rem;
+}
+
+.overflow {
+    overflow-x: auto;
+}
+
+::-webkit-scrollbar {
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #D9DABE;
+    border-radius: 10pt;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #5E4C5A;
+    border-radius: 10pt;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #2D242B;
+}
+
 
 @media (pointer: coarse) {
     .carousel {
