@@ -127,11 +127,11 @@ label:active:after {
     width: 20px;
 }
 
-input:checked+label #off{
+input:checked+label #off {
     display: none;
 }
 
-:not(input:checked)+label #on{
+:not(input:checked)+label #on {
     display: none;
 }
 
@@ -144,12 +144,13 @@ p {
     font-size: .75rem;
     user-select: none;
     padding-left: .5em;
-    padding-right: .2em;
+    padding-right: .35em;
     font-weight: 600;
 }
 
 #off {
     justify-content: flex-end;
+    font-size: .65rem;
 }
 
 #toggle-overflow {
@@ -164,6 +165,24 @@ p {
 
 .overflow {
     overflow-x: auto;
+}
+
+::-webkit-scrollbar {
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #D9DABE;
+    border-radius: 10pt;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #5E4C5A;
+    border-radius: 10pt;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #2D242B;
 }
 
 
