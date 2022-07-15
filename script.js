@@ -103,4 +103,16 @@ window.onload = () => {
             scrollEv(leftArrows[i], rightArrows[i], carousels[i]);
         };
     }
+
+    /* TOGGLE OVERFLOW */
+
+    let toggleOverflow = document.getElementById("toggle");
+    toggleOverflow.addEventListener("click", () => {
+        for (let i = 0; i < carousels.length; i++) {
+            carousels[i].classList.toggle("overflow");
+        }
+    });
 }
+
+
+
